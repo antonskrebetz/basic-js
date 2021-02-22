@@ -7,24 +7,25 @@ module.exports = function repeater(str, options) {
 		addTime = options.additionRepeatTimes,
 		addSep = options.additionSeparator;
 	
-	if (!repeat) {repeat = 1;}
-	if (!addTime) {addTime = 1;}
-	if (!separ) {separ = '+';}
-	if (!addSep) {addSep = '|';}
+	if (repeat == undefined) {repeat = 1;}
+	if (addTime == undefined) {addTime = 1;}
+	if (add == undefined && add !== null) {add = '';}
+	if (separ == undefined) {separ = '+';}
+	if (addSep == undefined) {addSep = '|';}
 
-	let strAdd = '';
 	let resultStr = '';
 
-	let j = 1;
-	while (j <= addTime) {
-		strAdd += add + addSep;
-		j++;  
-	}
-
-	let i = 1;
-	while (i <= repeat) {
-		resultStr += str + strAdd + separ;
-		i++;
+	for (let i = 0; i < repeat; i++) {
+		resultStr += str;
+		for (let j = 0; j < addTime; j++) {
+			if (j < addTime - 1) {
+				resultStr += add + addSep;
+			} else if (i < repeat - 1) {
+				resultStr += add + separ;
+			} else {
+				resultStr += add;
+			}
+		}
 	}
 
 	return resultStr;
